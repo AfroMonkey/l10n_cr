@@ -17,7 +17,7 @@ class ResConfigSettings(models.TransientModel):
     load_lines = fields.Boolean(
         string=_('Indicates if invoice lines should be load when loading a Costa Rican Digital Invoice'),
     )
-  
+
     reimbursable_email = fields.Char(
         string='Este email se busca en el "to" del correo para marcar la factura como reembolsable', required=False, copy=False, index=True)
 
@@ -38,10 +38,9 @@ class ResConfigSettings(models.TransientModel):
 
     @api.multi
     def set_values(self):
-        super(ResConfigSettings, self).set_values()
-        set_param = self.env['ir.config_parameter'].sudo().set_param
+        # super(ResConfigSettings, self).set_values()
+        set_param = self.env['ir.config_parameter'].set_param
         set_param('expense_account_id', self.expense_account_id.id)
         set_param('load_lines', self.load_lines)
         set_param('reimbursable_email', self.reimbursable_email)
         set_param('notification_email', self.notification_email)
-
