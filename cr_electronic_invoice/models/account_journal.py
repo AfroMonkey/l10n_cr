@@ -5,6 +5,7 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
 class AccountJournalInherit(models.Model):
     _name = 'account.journal'
     _inherit = 'account.journal'
@@ -28,3 +29,11 @@ class AccountJournalInherit(models.Model):
                                      string="Secuencia de Notas de Débito Electrónicas",
                                      required=False)
 
+    @api.model
+    def set_sequences(self):
+        for record in self.search([]):
+            record.FE_sequence_id = self.env['ir.sequence'].search([('code', '=', 'sequece.FE')], limit=1)[0]
+            record.TE_sequence_id = self.env['ir.sequence'].search([('code', '=', 'sequece.TE')], limit=1)[0]
+            record.FEE_sequence_id = self.env['ir.sequence'].search([('code', '=', 'sequece.FEE')], limit=1)[0]
+            record.NC_sequence_id = self.env['ir.sequence'].search([('code', '=', 'sequece.NC')], limit=1)[0]
+            record.ND_sequence_id = self.env['ir.sequence'].search([('code', '=', 'sequece.ND')], limit=1)[0]
